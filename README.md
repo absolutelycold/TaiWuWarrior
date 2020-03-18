@@ -10,3 +10,6 @@
 后续可能添加:
 
 不消耗人力
+
+[Rlease下载](https://github.com/absolutelycold/TaiWuWarrior/releases)
+
