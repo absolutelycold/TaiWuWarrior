@@ -21,6 +21,9 @@ public:
 	std::vector<DWORD> huOffset = { 0x004A2308, 0x210, 0x338, 0x18, 0x30, 0x18, 0xC0, 0x28 };
 	std::vector<DWORD> qiOffset = { 0x004A2308, 0x210, 0x338, 0x18, 0x30, 0x18, 0xC0, 0x2C };
 	std::vector<DWORD> wuxingOffset = { 0x0229AAE0, 0x130 , 0xB8, 0xA8, 0x8, 0xB8, 0x58, 0x13C };
+	std::vector<DWORD> buildTimeOffset = { 0x0229AAE0, 0x40, 0x10, 0x48, 0x48, 0x28, 0x38, 0x68C };
+	std::vector<DWORD> heartOffset = { 0x0229AAE0, 0x130, 0xB8, 0xA8, 0x8, 0xB8, 0x58, 0x144 };
+	std::vector<DWORD> buildLaborOffset = { 0x0229AAE0, 0x40, 0x10, 0x48, 0x48, 0x28, 0x38, 0x680 };
 	
 	ULONGLONG dayAddress = 0;
 	ULONGLONG expAddr = 0;
@@ -28,6 +31,10 @@ public:
 	ULONGLONG qinAddr = 0;
 	ULONGLONG huAddr = 0;
 	ULONGLONG qiAddr = 0;
+	ULONGLONG buildTimeAddr = 0;
+	ULONGLONG buildLaborAddr = 0;
+	ULONGLONG heartAddr = 0;
+	
 	
 	BOOL writeDay(DWORD num);
 	BOOL AddExp(DWORD num);
@@ -36,6 +43,9 @@ public:
 	BOOL AddHuti(DWORD num);
 	BOOL AddQiqiao(DWORD num);
 	BOOL writeWuxing(DWORD num);
+	BOOL zeroBuildTime();
+	BOOL infiniteHeart();
+	BOOL zeroBuildLabor();
 
 	TaiWuInfo(TCHAR* processName);
 	~TaiWuInfo();

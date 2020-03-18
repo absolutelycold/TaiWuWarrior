@@ -47,26 +47,22 @@ int main()
 
 		if (GetAsyncKeyState(VK_F3) & 1)
 		{
-			twInfo.AddCuipo(50);
+			twInfo.AddCuipo(100);
+			twInfo.AddQinyin(100);
+			twInfo.AddHuti(100);
+			twInfo.AddQiqiao(100);
 		}
 
 		if (GetAsyncKeyState(VK_F4) & 1)
 		{
 
-			twInfo.AddQinyin(50);
+			twInfo.AddCuipo(-100);
+			twInfo.AddQinyin(-100);
+			twInfo.AddHuti(-100);
+			twInfo.AddQiqiao(-100);
 		}
 
 		if (GetAsyncKeyState(VK_F5) & 1)
-		{
-			twInfo.AddHuti(50);
-		}
-
-		if (GetAsyncKeyState(VK_F6) & 1)
-		{
-			twInfo.AddQiqiao(50);
-		}
-
-		if (GetAsyncKeyState(VK_F7) & 1)
 		{
 			isLockWuxing = !isLockWuxing;
 			ResumeThread(hThread);
@@ -81,10 +77,16 @@ int main()
 			}
 		}
 
+		if (GetAsyncKeyState(VK_F6) & 1) {
+			twInfo.zeroBuildTime();
+			twInfo.zeroBuildLabor();
+		}
+
 	}
 
 	CloseHandle(hThread);
-
+	CloseHandle(lockDayThread);
+	CloseHandle(lockWuxingThread);
 	getchar();
 	
 }
@@ -106,25 +108,27 @@ DWORD WINAPI showUI(LPVOID lpParameter) {
 
 		printf("                F2:添加100历练\n\n");
 
-		printf("                F3:添加50催破\n\n");
+		printf("                F3:添加100催破, 轻灵, 护体, 奇窍 \n\n");
 
-		printf("                F4:添加50轻灵\n\n");
-
-		printf("                F5:添加50护体\n\n");
-
-		printf("                F6:添加50奇窍\n\n");
+		printf("                F4:减少100催破, 轻灵, 护体, 奇窍\n\n");
 
 		if (isLockWuxing)
 		{
-			printf("                F7:锁定学习悟性(在学习界面开启):> ON <\n\n");
+			printf("                F5:锁定学习悟性,耐心(在学习界面开启):> ON <\n\n");
 			
 		}
 		else
 		{
-			printf("                F7:锁定学习悟性(在学习界面开启):> OFF <\n\n");
+			printf("                F5:锁定学习悟性，耐心(在学习界面开启):> OFF <\n\n");
 		}
+
+		printf("                F6:秒建建筑(在建筑界面点几下)\n\n");
+
 		printf("\n-----------------------------------------------------------\n\n");
 		SuspendThread(hThread);
+
+		
+
 	}
 }
 
@@ -141,7 +145,8 @@ DWORD WINAPI lockDayFunc(LPVOID lpParameter) {
 DWORD WINAPI lockWuXingFunc(LPVOID lpParameter) {
 	while (true)
 	{
-		if (!(twInfo.writeWuxing(999)))
+
+		if ((!twInfo.writeWuxing(999)) || (!twInfo.infiniteHeart()))
 		{
 			TerminateThread(lockWuxingThread, 0);
 		}

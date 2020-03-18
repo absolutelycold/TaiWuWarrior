@@ -21,6 +21,7 @@ TaiWuInfo::TaiWuInfo(TCHAR* processName)
 		qinAddr = getFinalAddddy(qinOffset, bdwgcModuleBaseAddr, hProcess);
 		huAddr = getFinalAddddy(huOffset, bdwgcModuleBaseAddr, hProcess);
 		qiAddr = getFinalAddddy(qiOffset, bdwgcModuleBaseAddr, hProcess);
+		buildTimeAddr = getFinalAddddy(buildTimeOffset, UnityPlayerBaseAddr, hProcess);
 
 	}
 
@@ -74,6 +75,24 @@ BOOL TaiWuInfo::writeWuxing(DWORD num)
 {
 	ULONGLONG wuxingAddr = getFinalAddddy(wuxingOffset, UnityPlayerBaseAddr, hProcess);
 	return writeToMemoryInt(hProcess, wuxingAddr, num);
+}
+
+BOOL TaiWuInfo::zeroBuildTime()
+{
+	buildTimeAddr = getFinalAddddy(buildTimeOffset, UnityPlayerBaseAddr, hProcess);
+	return writeToMemoryInt(hProcess, buildTimeAddr, 0);
+}
+
+BOOL TaiWuInfo::infiniteHeart()
+{
+	heartAddr = getFinalAddddy(heartOffset, UnityPlayerBaseAddr, hProcess);
+	return writeToMemoryInt(hProcess, heartAddr, 99);
+}
+
+BOOL TaiWuInfo::zeroBuildLabor()
+{
+	buildLaborAddr = getFinalAddddy(buildLaborOffset, UnityPlayerBaseAddr, hProcess);
+	return writeToMemoryInt(hProcess, buildLaborAddr, 0);
 }
 
 
